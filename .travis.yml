@@ -4,8 +4,10 @@ python:
     - 3.3
     - 3.4
     - 3.5
-install:
+before_install:
+    - pip install -U pip
     - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip install 'Django<1.9'; fi
+install:
     - python setup.py install
 script:
     - python setup.py test
