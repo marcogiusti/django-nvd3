@@ -1,1 +1,1 @@
-python-nvd3==0.14.2
+git+https://github.com/marcogiusti/python-nvd3@develop#python-nvd3
