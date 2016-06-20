@@ -9,9 +9,12 @@ env:
 install:
     - pip install -U pip
     - pip install Django=="$DJANGO_VERSION"
+    - pip install coveralls
     - python setup.py install
 script:
-    - python setup.py test
+    coverage run --source=django_nvd3 -m unittest test_django_nvd3
+after_success:
+    coveralls
 branches:
     only:
         - develop
