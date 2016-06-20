@@ -1,3 +1,8 @@
+# Copyright (c) 2016 Marco Giusti
+# Copyright (c) 2013-2014 Arezqui Belaid <areski@gmail.com> and other
+# contributors
+# See LICENSE.txt for details.
+
 from django import template
 from django.utils.safestring import mark_safe
 from django.conf import settings
