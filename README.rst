@@ -12,7 +12,11 @@ d3.js without taking away the power that d3.js gives you.
 This is a fork of the original work of Arezqui Belaid.
 
 .. image:: https://travis-ci.org/marcogiusti/django-nvd3.svg?branch=develop
-    :target: https://travis-ci.org/marcogiusti/django-nvd3
+   :target: https://travis-ci.org/marcogiusti/django-nvd3
+
+.. image:: https://coveralls.io/repos/github/marcogiusti/django-nvd3/badge.svg?branch=develop
+   :target: https://coveralls.io/github/marcogiusti/django-nvd3?branch=develop 
+
 
 Installation
 ------------
