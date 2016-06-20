@@ -1,7 +1,12 @@
-global-exclude *.pyc
-include README.rst
 include CHANGELOG.rst
+include CONTRIBUTORS
+include HACKING
 include MIT-LICENSE.txt
 include requirements.txt
 include test_requirements.txt
-recursive-include django_nvd3 *
+include TODO.rst
+include update_version.sh
+
+include-recursive tests *.py
+graft docs
+prune docs/build
