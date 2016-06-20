@@ -60,6 +60,16 @@ class TestIncludeTag(unittest.TestCase):
                                  nvd3js="/static/nv.d3.min.js")
         self.assertEqual(rendered, expected)
 
+    def test_static_dir(self):
+        rendered = render_template(
+            "{% load nvd3_tags %}"
+            "{% include_chart_jscss '/s' %}"
+        )
+        expected = HEADER.format(css="/s/nv.d3.min.css",
+                                 d3js="/s/d3.v3.min.js",
+                                 nvd3js="/s/nv.d3.min.js")
+        self.assertEqual(rendered, expected)
+
 
 class TestIncludeContainer(unittest.TestCase):
 
