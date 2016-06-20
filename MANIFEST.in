@@ -7,6 +7,6 @@ include test_requirements.txt
 include TODO.rst
 include update_version.sh
 
-include-recursive tests *.py
+recursive-include tests *.py
 graft docs
 prune docs/build
