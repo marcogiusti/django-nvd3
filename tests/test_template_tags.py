@@ -1,9 +1,9 @@
 import unittest
 
+from django.conf import settings
+settings.configure(INSTALLED_APPS=["django_nvd3"])
 import django
 django.setup()
-from django.conf import settings
-settings.configure()
 from django.template import Context, Template
 from django.test.utils import override_settings
 from django_nvd3.templatetags.nvd3_tags import load_chart, include_container
