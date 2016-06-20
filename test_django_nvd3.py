@@ -9,7 +9,7 @@ from django.test.utils import override_settings
 from django_nvd3.templatetags.nvd3_tags import load_chart, include_container
 
 
-HEADER = """\
+HEADER = u"""\
 <link media="all" href="{css}" type="text/css" rel="stylesheet" />
 <script src="{d3js}" type="text/javascript" charset="utf-8"></script>
 <script src="{nvd3js}" type="text/javascript" charset="utf-8"></script>
@@ -23,12 +23,12 @@ def render_template(string, context=None):
     return Template(string).render(context)
 
 
-@override_settings(STATIC_URL='/static/')
 class TestIncludeTag(unittest.TestCase):
     # Not only does this test the output of the template tag,
     # but also the order of including the static files - mainly
     # d3 and nvd3 js files which should be in that order.
 
+    @override_settings(STATIC_URL='/static/')
     def test_custom_dirs(self):
         rendered = render_template(
             "{% load nvd3_tags %}"
@@ -38,6 +38,18 @@ class TestIncludeTag(unittest.TestCase):
                                  d3js="/static/js/d3.min.js",
                                  nvd3js="/static/js/nv.d3.min.js")
         self.assertEqual(rendered, expected)
+
+    @override_settings(STATIC_URL='/static/')
+    def test_default_dirs(self):
+        rendered = render_template(
+            "{% load nvd3_tags %}"
+            "{% include_chart_jscss %}"
+        )
+        expected = HEADER.format(css="/static/nvd3/build/nv.d3.min.css",
+                                 d3js="/static/d3/d3.min.js",
+                                 nvd3js="/static/nvd3/build/nv.d3.min.js")
+        self.assertEqual(rendered, expected)
+
 
 class NVD3TemplateTagsTestCase(unittest.TestCase):
 
