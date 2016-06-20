@@ -35,7 +35,7 @@ class TestIncludeTag(unittest.TestCase):
             "{% include_chart_jscss css_dir='css' js_dir='js' %}"
         )
         expected = HEADER.format(css="/static/css/nv.d3.min.css",
-                                 d3js="/static/js/d3.min.js",
+                                 d3js="/static/js/d3.v3.min.js",
                                  nvd3js="/static/js/nv.d3.min.js")
         self.assertEqual(rendered, expected)
 
@@ -46,7 +46,7 @@ class TestIncludeTag(unittest.TestCase):
             "{% include_chart_jscss %}"
         )
         expected = HEADER.format(css="/static/nv.d3.min.css",
-                                 d3js="/static/d3.min.js",
+                                 d3js="/static/d3.v3.min.js",
                                  nvd3js="/static/nv.d3.min.js")
         self.assertEqual(rendered, expected)
 

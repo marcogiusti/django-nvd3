@@ -141,7 +141,7 @@ def include_chart_jscss(static_dir='', css_dir='', js_dir=''):
         js_dir += '/'
 
     css = static_dir + css_dir + "nv.d3.min.css"
-    d3 = static_dir + js_dir + "d3.min.js"
+    d3 = static_dir + js_dir + "d3.v3.min.js"
     nvd3 = static_dir + js_dir + "nv.d3.min.js"
     chart = NVD3Chart()
     chart.header_css = [CSS_LINK.format(css)]
