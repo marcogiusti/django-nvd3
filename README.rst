@@ -21,22 +21,27 @@ This is a fork of the original work of Arezqui Belaid.
 Installation
 ------------
 
-Install, upgrade and uninstall django-nvd3 with these commands::
+Use pip::
 
-    $ pip install django-nvd3
-    $ pip install --upgrade django-nvd3
-    $ pip uninstall django-nvd3
+    $ pip install git+https://github.com/marcogiusti/django-nvd3@develop#egg=django-nvd3
 
 Then edit settings.py from your django project and add 'django_nvd3' in
-your 'INSTALLED_APPS' setting.
+your 'INSTALLED_APPS' setting::
+
+   ...
+   INSTALLED_APPS = [
+      ...
+      "django_nvd3",
+   ]
+   ...
 
 
 Dependencies
 ------------
 
-Django-nvd3 have one major dependencie:
+django-nvd3 depends on python-nvd3_
 
-* python-nvd3 : https://github.com/areski/python-nvd3
+.. _python-nvd3: https://github.com/marcogiusti/python-nvd3
 
 
 Bower will be used to install D3 and NvD3, see bower website for futher
