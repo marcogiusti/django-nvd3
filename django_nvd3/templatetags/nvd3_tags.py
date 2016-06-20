@@ -1,6 +1,6 @@
 import collections
 
-from django.template.defaultfilters import register
+from django import template
 from django.utils.safestring import mark_safe
 from django.conf import settings
 from nvd3.NVD3Chart import NVD3Chart
@@ -8,6 +8,9 @@ from nvd3 import lineWithFocusChart, lineChart, \
     multiBarChart, pieChart, stackedAreaChart, \
     multiBarHorizontalChart, linePlusBarChart, \
     cumulativeLineChart, discreteBarChart, scatterChart
+
+
+register = template.Library()
 
 
 @register.simple_tag
