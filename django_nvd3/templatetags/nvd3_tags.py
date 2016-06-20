@@ -1,3 +1,4 @@
+# -*- test-case-name: test_django_nvd3 -*-
 # Copyright (c) 2016 Marco Giusti
 # Copyright (c) 2013-2014 Arezqui Belaid <areski@gmail.com> and other
 # contributors
@@ -86,7 +87,7 @@ def load_chart(chart_type, series, container, kw_extra={}, *args, **kwargs):
 
 
 @register.simple_tag
-def include_container(include_container, height=400, width=600):
+def include_container(name, height=400, width=600):
     """
     Include the html for the chart container and css for nvd3
     This will include something similar as :
@@ -98,16 +99,15 @@ def include_container(include_container, height=400, width=600):
 
     **Arguments**:
 
-        * ``include_container`` - container_name
+        * ``name`` - container_name
         * ``height`` - Chart height
         * ``width`` - Chart width
     """
     chart = NVD3Chart()
-    chart.name = str(include_container)
+    chart.name = str(name)
     chart.set_graph_height(height)
     chart.set_graph_width(width)
     chart.buildcontainer()
-
     return mark_safe(chart.container + '\n')
 
 

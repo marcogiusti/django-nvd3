@@ -21,6 +21,11 @@ HEADER = u"""\
 
 """
 
+CONTAINER = """\
+<div id="{name}"><svg style="width:{width};height:{height};"></svg></div>
+
+"""
+
 
 def render_template(string, context=None):
     context = context or {}
@@ -54,6 +59,27 @@ class TestIncludeTag(unittest.TestCase):
                                  d3js="/static/d3.v3.min.js",
                                  nvd3js="/static/nv.d3.min.js")
         self.assertEqual(rendered, expected)
+
+
+class TestIncludeContainer(unittest.TestCase):
+
+    def test_defaults(self):
+        name = "chart"
+        rendered = include_container(name=name)
+        expected = CONTAINER.format(name=name, height="400px", width="600px")
+        self.assertEqual(rendered, expected)
+
+    def test_custom_size(self):
+        name = "chart"
+        rendered = include_container(name=name, height=30, width=20)
+        expected = CONTAINER.format(name=name, height="30px", width="20px")
+        self.assertEqual(rendered, expected)
+
+
+class TestLoadChart(unittest.TestCase):
+
+    def test_no_type(self):
+        self.assertFalse(load_chart("", None, None))
 
 
 class NVD3TemplateTagsTestCase(unittest.TestCase):
