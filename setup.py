@@ -31,7 +31,7 @@ setup(
     author_email='areski@gmail.com',
     license='MIT',
     zip_safe=False,
-    packages=["django_nvd3"],
+    packages=["django_nvd3", "django_nvd3.templatetags"],
     install_requires=["Django", "python-nvd3"],
     test_suite='tests',
     classifiers=[
