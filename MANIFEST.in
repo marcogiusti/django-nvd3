@@ -2,8 +2,6 @@ include CHANGELOG.rst
 include CONTRIBUTORS
 include LICENSE.txt
 include requirements.txt
-include TODO.rst
-include update_version.sh
 include test_django_nvd3.py
 
 graft docs
