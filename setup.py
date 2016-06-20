@@ -32,7 +32,7 @@ setup(
     license='MIT',
     zip_safe=False,
     packages=["django_nvd3", "django_nvd3.templatetags"],
-    install_requires=["Django < 1.10", "python-nvd3"],
+    install_requires=["Django", "python-nvd3"],
     test_suite='tests',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
