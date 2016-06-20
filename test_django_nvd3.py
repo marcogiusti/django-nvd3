@@ -45,9 +45,9 @@ class TestIncludeTag(unittest.TestCase):
             "{% load nvd3_tags %}"
             "{% include_chart_jscss %}"
         )
-        expected = HEADER.format(css="/static/nvd3/build/nv.d3.min.css",
-                                 d3js="/static/d3/d3.min.js",
-                                 nvd3js="/static/nvd3/build/nv.d3.min.js")
+        expected = HEADER.format(css="/static/nv.d3.min.css",
+                                 d3js="/static/d3.min.js",
+                                 nvd3js="/static/nv.d3.min.js")
         self.assertEqual(rendered, expected)
 
 

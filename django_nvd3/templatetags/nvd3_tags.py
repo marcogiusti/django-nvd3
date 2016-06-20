@@ -1,5 +1,3 @@
-import collections
-
 from django import template
 from django.utils.safestring import mark_safe
 from django.conf import settings
@@ -9,6 +7,10 @@ from nvd3 import lineWithFocusChart, lineChart, \
     multiBarHorizontalChart, linePlusBarChart, \
     cumulativeLineChart, discreteBarChart, scatterChart
 
+
+CSS_LINK = '<link media="all" href="{0}" type="text/css" rel="stylesheet" />\n'
+JS_SCRIPT = ('<script src="{0}" type="text/javascript" charset="utf-8">'
+             '</script>\n')
 
 register = template.Library()
 
@@ -107,67 +109,42 @@ def include_container(include_container, height=400, width=600):
 @register.simple_tag
 def include_chart_jscss(static_dir='', css_dir='', js_dir=''):
     """
-    Include the html for the chart container and css for nvd3
-    This will include something similar as :
+    Include the html for the chart container and css for nvd3.
 
-        <link media="all" href="/static/nvd3/src/nv.d3.css" type="text/css" rel="stylesheet" />
-        <script src="/static/d3/d3.min.js" type="text/javascript"></script>
-        <script src="/static/nvd3/nv.d3.min.js" type="text/javascript"></script>
-
-    **usage**:
+    **usage**::
 
         {% include_chart_jscss %}
 
-    Or if you want to specify a subdirectory below STATIC_URL for all static files,
+    Or if you want to specify a subdirectory below STATIC_URL for all
+    static files::
 
         {% include_chart_jscss 'newfies' %}
 
-    Or if you have all your CSS and JS files in particular directories and want to specify them,
+    Or if you have all your CSS and JS files in particular directories
+    and want to specify them::
 
         {% include_chart_jscss css_dir='css' js_dir='js' %}
 
-    **Arguments**:
-
-        * ``static_dir`` -
-        * ``css_dir`` -
-        * ``js_dir`` -
+    :param str static_dir: URL to use when referring to static files.
+    :param str css_dir: css specific subdirectory.
+    :param str js_dir: js specific subdirectory.
+    :return: The headers to include in the page.
     """
-    if static_dir:
+
+    if not static_dir:
+        static_dir = settings.STATIC_URL
+    elif not static_dir.endswith("/"):
         static_dir += '/'
+    if css_dir and not css_dir.endswith('/'):
+        css_dir += '/'
+    if js_dir and not js_dir.endswith('/'):
+        js_dir += '/'
 
-    css_files_dirs = collections.OrderedDict()
-    js_files_dirs = collections.OrderedDict()
-
-    css_files_dirs['nv.d3.min.css'] = '%s%snvd3/build/' % (settings.STATIC_URL, static_dir)
-
-    js_files_dirs['d3.min.js'] = '%s%sd3/' % (settings.STATIC_URL, static_dir)
-    js_files_dirs['nv.d3.min.js'] = '%s%snvd3/build/' % (settings.STATIC_URL, static_dir)
-
-    if css_dir:
-        if not css_dir.endswith('/'):
-            css_dir += '/'
-        for css_file in css_files_dirs:
-            css_files_dirs[css_file] = '%s%s%s' % (settings.STATIC_URL, static_dir, css_dir)
-
-    if js_dir:
-        if not js_dir.endswith('/'):
-            js_dir += '/'
-        for js_file in js_files_dirs:
-            js_files_dirs[js_file] = '%s%s%s' % (settings.STATIC_URL, static_dir, js_dir)
-
+    css = static_dir + css_dir + "nv.d3.min.css"
+    d3 = static_dir + js_dir + "d3.min.js"
+    nvd3 = static_dir + js_dir + "nv.d3.min.js"
     chart = NVD3Chart()
-    chart.header_css = [
-        '<link media="all" href="%s" type="text/css" rel="stylesheet" />\n' % h for h in
-        (
-            '%s%s' % (path, css_file) for css_file, path in css_files_dirs.items()
-        )
-    ]
-
-    chart.header_js = [
-        '<script src="%s" type="text/javascript" charset="utf-8"></script>\n' % h for h in
-        (
-            '%s%s' % (path, js_file) for js_file, path in js_files_dirs.items()
-        )
-    ]
+    chart.header_css = [CSS_LINK.format(css)]
+    chart.header_js = [JS_SCRIPT.format(d3), JS_SCRIPT.format(nvd3)]
     chart.buildhtmlheader()
     return mark_safe(chart.htmlheader + '\n')
