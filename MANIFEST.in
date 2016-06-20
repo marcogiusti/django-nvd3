@@ -1,7 +1,7 @@
 include CHANGELOG.rst
 include CONTRIBUTORS
 include HACKING
-include MIT-LICENSE.txt
+include LICENSE.txt
 include requirements.txt
 include test_requirements.txt
 include TODO.rst
